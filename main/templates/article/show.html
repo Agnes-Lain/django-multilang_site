@@ -1,0 +1,15 @@
+<!--  An article show page to show the detail content of each article  -->
+
+<!--  to inherit the base html  -->
+{% extends "base.html" %}
+
+{% block page_title %}
+    <h2>{{ article.title }}</h2>
+{% endblock page_title %}
+
+{% block page_content %}
+    <small>
+        {{ article.publication_date.date }}:
+    </small>
+    <p>{{ article.content | linebreaks }}</p>
+{% endblock page_content %}

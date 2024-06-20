@@ -1,0 +1,21 @@
+<!--  Create index view to show all the articles -->
+
+<!--  to inherit the base html  -->
+{% extends "base.html" %}
+
+{% block page_title %}
+    <h2>Articles</h2>
+{% endblock page_title %}
+
+{% block page_content %}
+    {% block articles %}
+        {% for article in articles %}
+            <h3><a href="{% url 'article_show' article.pk %}">{{ article.title }}</a></h3>
+            <small>
+                {{ article.publication_date.date }}:
+            </small>
+            {% comment %} here just show a short 400 chars limited content {% endcomment %}
+            <p>{{ article.content | slice:":400" }}...</p>
+        {% endfor %}
+    {% endblock articles %}
+{% endblock page_content %}
