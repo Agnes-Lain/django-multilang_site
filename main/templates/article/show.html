@@ -11,5 +11,11 @@
     <small>
         {{ article.publication_date.date }}:
     </small>
+    {% comment %} <a href="{% url 'article_show' article.pk %}" method="POST">🗑️ Delete this article</a> {% endcomment %}
+    <form method="POST">
+      <!-- Security token by Django -->
+      {% csrf_token %}
+      <input type="submit" value="🗑️ Delete this article ?" />
+  </form>
     <p>{{ article.content | linebreaks }}</p>
 {% endblock page_content %}
