@@ -1,4 +1,6 @@
 <!--  Add header & meta data as backbone html of the website   -->
+<!--  load i18n for internationalisation translation  -->
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,10 +10,32 @@
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-<h1>My Articles</h1>
-<a href="{% url 'article_index' %}">Home</a>
-<a href="{% url 'article_new' %}">Add new article</a>
+<h1>{% trans "My Articles" %}</h1>
+<navbar style="justify-content: space-around">
+  <a href="{% url 'article_index' %}">{% trans "Articles List" %}</a>
+  <a href="{% url 'article_new' %}">{% trans "Add a new article" %}</a>
+
+  <!-- add language select option in the navbar-->
+  {% get_current_language as CURRENT_LANGUAGE %}
+  {% get_available_languages as AVAILABLE_LANGUAGES %}
+  {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+  <div class="languages">
+    <p>{% trans "Language" %}:</p>
+    <ul class="languages">
+      {% for language in languages %}
+        <li>
+          <a href="/{{ language.code }}/"
+            {% if language.code == CURRENT_LANGUAGE %} class="active"{% endif %}>
+            {{ language.name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+
 <hr>
+</navbar>
 {% block page_title %}{% endblock page_title %}
 {% block page_content %}{% endblock page_content %}
 </body>

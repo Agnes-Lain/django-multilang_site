@@ -1,12 +1,16 @@
 {% extends "base.html" %}
+{% load i18n %}
+
+{% block page_title %}
+    <h2> {% trans "Add a new article" %} </h2>
+{% endblock page_title %}
 
 {% block page_content %}
   <section>
-    <h3> Add a new article </h3>
     <form class="form-control" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="form-submit">Add new Article</button>
+        <button class="form-submit">{% trans "Add new Article" %}</button>
     </form>
   </section>
   {% endblock page_content %}

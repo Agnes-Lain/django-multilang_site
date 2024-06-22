@@ -13,18 +13,3 @@ class CreatArticle(forms.ModelForm):
             "title",
             "content",
         ]
-
-# class ArticleForm(forms.Form):
-#     title = forms.CharField(
-#         label= "Title of the article:",
-#         max_length=255,
-#         widget=forms.TextInput(
-#             attrs={"class": "form-control"}
-#         ),
-#     )
-#     content = forms.CharField(
-#         label= "Content of the article:",
-#         widget=forms.Textarea(
-#             attrs={"class": "form-control"}
-#         )
-#     )

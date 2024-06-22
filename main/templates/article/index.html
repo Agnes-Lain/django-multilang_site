@@ -1,10 +1,12 @@
 <!--  Create index view to show all the articles -->
-
 <!--  to inherit the base html  -->
 {% extends "base.html" %}
 
+<!-- add the following to support translation -->
+{% load i18n %}
+
 {% block page_title %}
-    <h2>Articles</h2>
+    <h2>{% trans "Articles List" %}</h2>
 {% endblock page_title %}
 
 {% block page_content %}
@@ -15,7 +17,7 @@
                 {{ article.publication_date.date }}:
             </small>
             {% comment %} here just show a short 400 chars limited content {% endcomment %}
-            <p>{{ article.content | slice:":400" }}...</p>
+            <p>{{ article.content | slice:":200" }}...</p>
         {% endfor %}
     {% endblock articles %}
 {% endblock page_content %}
