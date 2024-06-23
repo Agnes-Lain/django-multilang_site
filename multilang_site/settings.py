@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-pg(v!h$*#k+jt+^cy70-$ml57d0mgs*(5xzn40al1@b)k@l9a2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'multilang_site.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/multilang_site',
+        default='postgresql://postgres:postgres@localhost:5432/multilang_siteDB',
         conn_max_age=600
     )
 }
