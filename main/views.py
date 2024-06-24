@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from django.utils.translation import get_language
 # import the model
 from main.models import Article
 # relative import the forms to create new article
@@ -16,9 +17,11 @@ def article_index(request):
 
 def article_show(request, pk):
     article = Article.objects.get(pk=pk)
+    lang = get_language()
     if request.method=="POST":
         article.delete()
-        return redirect("/")
+        return redirect('/%s' % lang)
+
 
     context = {
         "article": article,
@@ -30,12 +33,13 @@ def article_new(request):
     context = {}
 
     form = CreatArticle()
+    lang = get_language()
     if request.method == "POST":
         form = CreatArticle(request.POST)
 
         if form.is_valid():
             form.save()
-        return redirect('/')
+        return redirect('/%s' % lang)
 
     context['form'] = form
     return render(request, 'article/new.html', context)
