@@ -100,7 +100,7 @@ DATABASES = {
         # Replace this value with your local database's connection string.
         # default='postgresql://postgres:postgres@localhost:5432/multilang_site',
         # this is the internal database link of render.com
-        default='postgresql://mysite:OqZiKBX7CaCs1brCMtWfFcMQhnPCJdhm@dpg-cps8giaj1k6c738jhhmg-a/mysite_k2br'
+        default='postgresql://mysite:OqZiKBX7CaCs1brCMtWfFcMQhnPCJdhm@dpg-cps8giaj1k6c738jhhmg-a/mysite_k2br',
         conn_max_age=600
     )
 }
