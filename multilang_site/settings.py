@@ -94,13 +94,26 @@ WSGI_APPLICATION = 'multilang_site.wsgi.application'
 #     }
 # }
 
+# Database setup for render.com deployment
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/multilang_siteDB',
+        default='postgresql://postgres:postgres@localhost:5432/multilang_site',
         conn_max_age=600
     )
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "HOST": "127.0.0.1",
+#         "PORT": "5432",
+#         "OPTIONS": {
+#             "service": "my_service",
+#             "passfile": ".my_pgpass",
+#         },
+#     }
+# }
 
 
 # Password validation
