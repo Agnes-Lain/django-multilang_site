@@ -21,11 +21,11 @@ from django.utils.translation import gettext_lazy as _
 
 import os
 
-# import environ
+import environ
 
-# # Initialise environment variables
-# env = environ.Env()
-# environ.Env.read_env()
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,7 +36,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-# SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', "False")=="True"
@@ -103,11 +102,12 @@ WSGI_APPLICATION = 'multilang_site.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+database_url = os.environ.get("DATABASE_URL")
 
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/multilang_site',
+        default=database_url,
         # this is the internal database link of render.com
         # default='postgresql://mysite:OqZiKBX7CaCs1brCMtWfFcMQhnPCJdhm@dpg-cps8giaj1k6c738jhhmg-a/mysite_k2br',
         conn_max_age=600
@@ -115,8 +115,7 @@ DATABASES = {
 }
 
 # Database setup for render.com deployment to overwrite the above local setup
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse(database_url)
+# DATABASES["default"] = dj_database_url.parse(database_url)
 
 
 
