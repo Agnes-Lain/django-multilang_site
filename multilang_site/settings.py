@@ -28,12 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pg(v!h$*#k+jt+^cy70-$ml57d0mgs*(5xzn40al1@b)k@l9a2'
+SECRET_KEY = os.environ.get("SECTRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG, "False").lower() == "true"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -98,14 +98,14 @@ DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
         default='postgresql://postgres:postgres@localhost:5432/multilang_site',
-        # this is the internal database link of render.com
-        # default='postgresql://mysite:OqZiKBX7CaCs1brCMtWfFcMQhnPCJdhm@dpg-cps8giaj1k6c738jhhmg-a/mysite_k2br',
         conn_max_age=600
     )
 }
 
 # Database setup for render.com deployment to overide
-DATABASES["default"] = dj_database_url.parse("postgresql://mysite:OqZiKBX7CaCs1brCMtWfFcMQhnPCJdhm@dpg-cps8giaj1k6c738jhhmg-a.oregon-postgres.render.com/mysite_k2br")
+database_url = os.environ.get("DATABASE_URL")
+
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 
 
