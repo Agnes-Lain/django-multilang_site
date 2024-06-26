@@ -1,0 +1,46 @@
+<!--  Create an simple chat interface -->
+<!--  to inherit the base html  -->
+{% extends "base.html" %}
+
+<!-- add the following to support translation -->
+{% load i18n %}
+
+{% block page_title %}
+  <h1>{% trans "Chat with ChatGPT" %}</h1>
+{% endblock page_title %}
+
+{% block page_content %}
+  <div class="chat-container">
+    <div class="messages" id="messages"></div>
+    <form id="chat-form">
+        <input type="text" id="message-input" placeholder="Type a message..." required>
+        <button class= "form-submit" type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('chat-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const messageInput = document.getElementById('message-input');
+        const message = messageInput.value;
+        if (!message) return;
+
+        const messagesDiv = document.getElementById('messages');
+        messagesDiv.innerHTML += `<div class="message user">You: ${message}</div>`;
+        messageInput.value = '';
+
+        const response = await fetch("{% url 'article_chat' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: new URLSearchParams({ message })
+        });
+
+        const data = await response.json();
+        messagesDiv.innerHTML += `<div class="message bot">Bot: ${data.response}</div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    });
+  </script>
+{% endblock page_content %}

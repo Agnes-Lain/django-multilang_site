@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.utils.translation import get_language
 # import the model
 from main.models import Article
 # relative import the forms to create new article
 from .forms import CreatArticle
+# import openai package for chatbot set
+import openai
+from django.conf import settings
+openai.api_key = settings.OPENAI_API_KEY
 
 # Create the view of Article index to show all articles.
 
@@ -44,3 +49,21 @@ def article_new(request):
 
     context['form'] = form
     return render(request, 'article/new.html', context)
+
+
+def article_chat(request):
+    if request.method == "POST":
+        user_message = request.POST.get("message")
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "user",
+                    "content": user_message
+                }
+            ],
+        )
+        bot_response = response['choices'][0]['message']['content']
+        return JsonResponse({"response": bot_response})
+
+    return render(request, "article/chat.html")

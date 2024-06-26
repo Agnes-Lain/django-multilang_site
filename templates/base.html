@@ -3,40 +3,50 @@
 {% load i18n %}
 
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>My Articles Collection</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-</head>
-<body>
-<h1>{% trans "My Articles" %}</h1>
-<navbar style="justify-content: space-around">
-  <a href="{% url 'article_index' %}">{% trans "Articles List" %}</a>
-  <a href="{% url 'article_new' %}">{% trans "Add a new article" %}</a>
+  <head>
+      <meta charset="utf-8">
+      <title>My Articles Collection</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      {% comment %} <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css"> {% endcomment %}
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <div class="app-container">
+      <h1>{% trans "My Articles" %}</h1>
+      <nav class="navbar">
 
-  <!-- add language select option in the navbar-->
-  {% get_current_language as CURRENT_LANGUAGE %}
-  {% get_available_languages as AVAILABLE_LANGUAGES %}
-  {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
-  <div class="languages">
-    <p>{% trans "Language" %}:</p>
-    <ul class="languages">
-      {% for language in languages %}
-        <li>
-          <a href="/{{ language.code }}/"
-            {% if language.code == CURRENT_LANGUAGE %} class="active"{% endif %}>
-            {{ language.name_local }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+        <!-- add navigation options in the navbar-->
+        <div class="navbar-left">
+          <a href="{% url 'article_index' %}">{% trans "Articles List" %}</a>
+          <a href="{% url 'article_new' %}">{% trans "Add a new article" %}</a>
+          <a href="{% url 'article_chat' %}">{% trans "Chat with chatGPT" %}</a>
+        </div>
 
+        <!-- add language select option in the navbar-->
+        <div class="navbar-right">
+          {% get_current_language as CURRENT_LANGUAGE %}
+          {% get_available_languages as AVAILABLE_LANGUAGES %}
+          {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+          <div class="languages">
+            <p>{% trans "Language" %}:</p>
+            <ul class="languages">
+              {% for language in languages %}
+                <li>
+                  <a href="/{{ language.code }}/"
+                    {% if language.code == CURRENT_LANGUAGE %} class="active"{% endif %}>
+                    {{ language.name_local }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-<hr>
-</navbar>
-{% block page_title %}{% endblock page_title %}
-{% block page_content %}{% endblock page_content %}
-</body>
+      {% block page_title %}{% endblock page_title %}
+      {% block page_content %}{% endblock page_content %}
+    </div>
+  </body>
 </html>
