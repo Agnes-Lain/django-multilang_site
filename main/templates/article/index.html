@@ -16,7 +16,7 @@
             <small>
                 {{ article.publication_date.date }}:
             </small>
-            {% comment %} here just show a short 400 chars limited content {% endcomment %}
+            {% comment %} here just show a short 200 chars limited content {% endcomment %}
             <p>{{ article.content | slice:":200" }}...</p>
         {% endfor %}
     {% endblock articles %}
