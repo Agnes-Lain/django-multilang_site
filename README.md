@@ -24,8 +24,16 @@ Setup the local virtual environment:
   source env/bin/activate
 ```
 
-To run the project after clone from github run
-```pip install -r requirements.txt```
+To install all the package linked to the project
+```
+  pip install -r requirements.txt
+```
+Setup database:
+```
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+```
 
 If you want to run the app with prosgreSql server,you will need to create local database and replace the databaselink in multilang_sit/settings.py
 
